@@ -3,17 +3,86 @@
 <head>
     <title>Analyze Student Activities</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- 引入 jQuery -->
 </head>
 <body>
-    <h1>Analyze Student Activities</h1>
-    <form action="/predict" method="post">
-        <label for="studentName">Student Name:</label><br>
-        <input type="text" id="studentName" name="studentName"><br>
-        <label for="firstQuizz">First Quizz:</label><br>
-        <input type="text" id="firstQuizz" name="firstQuizz"><br>
-        <label for="completeTime">Complete Time:</label><br>
-        <input type="text" id="completeTime" name="completeTime"><br>
-        <input type="submit" value="Analyze">
-    </form>
+    <div class="grid-container">
+        <div class="grid-item">
+            <img src="your_image_path" alt="Your Image">
+            <p>Your Text</p>
+        </div>
+        <div class="grid-item">
+            <h1>Analyze Student Activities</h1>
+            <form id="form1" action="/predict1" method="post">
+                <label for="studentName">Student Name:</label><br>
+                <input type="text" id="studentName" name="studentName"><br>
+                <label for="firstQuizz">First Quizz:</label><br>
+                <input type="text" id="firstQuizz" name="firstQuizz"><br>
+                <label for="completeTime">Complete Time:</label><br>
+                <input type="text" id="completeTime" name="completeTime"><br>
+                <input type="submit" value="Analyze">
+            </form>
+        </div>
+        <div class="grid-item">
+            <img src="your_image_path" alt="Your Image">
+            <p>Your Text</p>
+        </div>
+        <div class="grid-item">
+            <h1>Classify Students</h1>
+            <form id="form2" action="/predict2" method="post">
+                <label for="studentName2">Student Name:</label><br>
+                <input type="text" id="studentName2" name="studentName"><br>
+                <label for="firstQuizz2">First Quizz:</label><br>
+                <input type="text" id="firstQuizz2" name="firstQuizz"><br>
+                <label for="completeTime2">Complete Time:</label><br>
+                <input type="text" id="completeTime2" name="completeTime"><br>
+                <input type="submit" value="Classify">
+            </form>
+        </div>
+    </div>
+
+    <script>
+    $('#form1').on('submit', function(e) {
+        e.preventDefault();
+
+        var data = {
+            studentName: $('#studentName').val(),
+            firstQuizz: $('#firstQuizz').val(),
+            completeTime: $('#completeTime').val()
+        };
+
+        $.ajax({
+            url: '/predict1',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(response) {
+                console.log(response);  // 打印预测结果
+                //可以在这里添加代码来处理预测结果，例如显示在页面上
+            }
+        });
+    });
+
+    $('#form2').on('submit', function(e) {
+        e.preventDefault();
+
+        var data = {
+            studentName: $('#studentName2').val(),
+            firstQuizz: $('#firstQuizz2').val(),
+            completeTime: $('#completeTime2').val()
+        };
+
+        $.ajax({
+            url: '/predict2',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(response) {
+                console.log(response);  // 打印预测结果
+                //可以在这里添加代码来处理预测结果，例如显示在页面上
+            }
+        });
+    });
+    </script>
 </body>
 </html>
