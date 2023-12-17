@@ -1,0 +1,69 @@
+Description (ENG)
+
+During the semester there were 16 quizzes and 13 programming homework
+assignments. Typically, there was one quiz and one homework every week,
+but on weeks 6, 12, and 16 there was no homework. Both the quizzes and
+the homeworks were graded automatically and the students could
+immediately submit a new attempt if they wished. The number of attempts
+was not limited.
+
+The file data.csv contains the numbers of attempts in quizzes and
+homeworks and has the following columns.
+
+* Student: Student code (S001 through S467)
+* Gender: M for male, F for female
+* Skill level: Self-reported skill level in the start survey at the
+beginning of the course (Novice, Beginner, Intermediate, Proficient,
+Expert); a "-" means that the student did not respond to the start
+survey
+* Numbers of attempts the student made in quizzes (weeks 1-16)
+* Numbers of attempts the student made in homeworks (weeks 1-5, 7-11,
+13-15)
+* Score: Final score of the course
+* Grade: Final grade
+
+The file log.csv contains the times and scores of all attempts and has
+the following columns.
+
+* Day: Day number, where the first Monday of the semester is day 1.
+* Time: The time when a quiz attempt was started or a homework was
+uploaded
+* Student: Student code (S001 throught S467), which is the same as the
+student code in the file data.csv
+* Activity: The name of the activity (quiz or homework) and the week
+number
+* Score: The automatic grade of the activity on a scale of 0-0.5, with
+two decimal places
+
+For quizzes, the score 0 often means that the student simply opened the
+quiz to see what the questions were, without trying to answer them, and
+made a real attempt later. The score "-" in the quizzes means that the
+student started the quiz attempt but did not submit it at the end. The
+score "-" in the homeworks means that the student uploaded the files but
+didn't submit them for automatic grading. All activities had deadlines
+but the quizzes were reopened in practice mode sometime after the
+deadline, to help prepare for the exams.
+
+The deadlines for the quizzes and homeworks were Thursday 8:00 each
+week, except for Week 1, when the deadline was Sunday 23:59. On
+Thursdays, there were in-class activities and the quizzes and homeworks
+of the following week opened on Thursday at 18:00.
+
+In addition to quizzes and homework assignments, there were other
+learning activities (exams, midterms, course project, etc.) not included
+in the data set. The final grade was calculated based on the final score
+of all activities: A>=90, B>=80, C>=70, D>=60, E>=50, F<50. Some course
+activities had a threshold that had to be passed to pass the course, so
+some students with a score above 50 still received an F. The score range
+was 0-110 (including 10 bonus points). If the student did not
+participate at all, the final score is "-".
+
+At the beginning of the second week, a pre-exam was organized for those
+who thought they knew the subject very well. Those students who got at
+least 90 points in it, received an A and finished the course straight
+away. So the results of students whose final grade is A and who did not
+submit any homeworks from week 3 onwards, can be discarded (though some
+of these students may have tried some later quizzes for fun).
+
+For a machine learning model, you can use either of the provided data
+files, or you can use both. All of these options are good.
