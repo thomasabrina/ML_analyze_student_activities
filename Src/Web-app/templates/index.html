@@ -12,16 +12,12 @@
             <p>Your Text</p>
         </div>
         <div class="grid-item">
-            <h1>Analyze Student Activities</h1>
-            <form id="form1" action="/predict1" method="post">
-                <label for="studentName">Student Name:</label><br>
-                <input type="text" id="studentName" name="studentName"><br>
-                <label for="firstQuizz">First Quizz:</label><br>
-                <input type="text" id="firstQuizz" name="firstQuizz"><br>
-                <label for="completeTime">Complete Time:</label><br>
-                <input type="text" id="completeTime" name="completeTime"><br>
-                <input type="submit" value="Analyze">
+            <h1>Upload CSV File</h1>
+            <form id="upload-form" action="/predict" method="post" enctype="multipart/form-data">
+                <input type="file" id="file" name="file"><br>
+                <input type="submit" value="Upload">
             </form>
+            <h2 id="result"></h2>  <!-- 用于显示预测结果 -->
         </div>
         <div class="grid-item">
             <img src="your_image_path" alt="Your Image">
@@ -42,23 +38,23 @@
     </div>
 
     <script>
-    $('#form1').on('submit', function(e) {
+    $('#upload-form').on('submit', function(e) {
         e.preventDefault();
 
-        var data = {
-            studentName: $('#studentName').val(),
-            firstQuizz: $('#firstQuizz').val(),
-            completeTime: $('#completeTime').val()
-        };
+        var formData = new FormData(this);
 
         $.ajax({
-            url: '/predict1',
+            url: '/predict',
             method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function(response) {
-                console.log(response);  // 打印预测结果
-                //可以在这里添加代码来处理预测结果，例如显示在页面上
+                console.log(response);  // 打印响应
+                $('#result').text('Prediction: ' + response);  // 显示预测结果
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('Error: ' + textStatus + ', ' + errorThrown);  // 打印错误信息
             }
         });
     });
@@ -79,10 +75,4 @@
             data: JSON.stringify(data),
             success: function(response) {
                 console.log(response);  // 打印预测结果
-                //可以在这里添加代码来处理预测结果，例如显示在页面上
-            }
-        });
-    });
-    </script>
-</body>
-</html>
+                //可以在这里添加代码来处理
