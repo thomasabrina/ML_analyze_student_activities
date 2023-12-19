@@ -8,32 +8,27 @@
 <body>
     <div class="grid-container">
         <div class="grid-item">
-            <img src="your_image_path" alt="Your Image">
-            <p>Your Text</p>
+            <img src="{{ url_for('static', filename='Predict.png') }}" alt="Predict Image">
         </div>
         <div class="grid-item">
-            <h1>Upload CSV File</h1>
+            <h1>Predict Scores</h1>
             <form id="upload-form" action="/predict" method="post" enctype="multipart/form-data">
                 <input type="file" id="file" name="file"><br>
-                <input type="submit" value="Upload">
+                <input type="submit" value="Predict">
             </form>
-            <h2 id="result"></h2>  <!-- 用于显示预测结果 -->
+            <div id="result" class="result-box"></div>  <!-- 修改这一行 -->
         </div>
         <div class="grid-item">
-            <img src="your_image_path" alt="Your Image">
-            <p>Your Text</p>
+            <img src="{{ url_for('static', filename='Features.png') }}" alt="Features Image">
         </div>
         <div class="grid-item">
             <h1>Classify Students</h1>
-            <form id="form2" action="/predict2" method="post">
-                <label for="studentName2">Student Name:</label><br>
-                <input type="text" id="studentName2" name="studentName"><br>
-                <label for="firstQuizz2">First Quizz:</label><br>
-                <input type="text" id="firstQuizz2" name="firstQuizz"><br>
-                <label for="completeTime2">Complete Time:</label><br>
-                <input type="text" id="completeTime2" name="completeTime"><br>
+            <form id="classify-form" action="/classify" method="post" enctype="multipart/form-data">
+                <input type="file" id="file2" name="file"><br>
                 <input type="submit" value="Classify">
             </form>
+            <div id="result2" class="result-box"></div>  <!-- 修改这一行 -->
+            <h2 id="error2"></h2>  <!-- 用于显示错误信息 -->
         </div>
     </div>
 
@@ -55,24 +50,32 @@
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log('Error: ' + textStatus + ', ' + errorThrown);  // 打印错误信息
+                $('#error').text('Error: ' + textStatus + ', ' + errorThrown);  // 显示错误信息
             }
         });
     });
 
-    $('#form2').on('submit', function(e) {
+    $('#classify-form').on('submit', function(e) {
         e.preventDefault();
 
-        var data = {
-            studentName: $('#studentName2').val(),
-            firstQuizz: $('#firstQuizz2').val(),
-            completeTime: $('#completeTime2').val()
-        };
+        var formData = new FormData(this);
 
         $.ajax({
-            url: '/predict2',
+            url: '/classify',
             method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function(response) {
-                console.log(response);  // 打印预测结果
-                //可以在这里添加代码来处理
+                console.log(response);  // 打印响应
+                $('#result2').text('Classification: ' + response);  // 显示分类结果
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('Error: ' + textStatus + ', ' + errorThrown);  // 打印错误信息
+                $('#error2').text('Error: ' + textStatus + ', ' + errorThrown);  // 显示错误信息
+            }
+        });
+    });
+    </script>
+</body>
+</html>
