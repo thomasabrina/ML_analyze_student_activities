@@ -3,7 +3,7 @@
 <head>
     <title>Analyze Student Activities</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- 引入 jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 </head>
 <body>
     <div class="grid-container">
@@ -16,7 +16,7 @@
                 <input type="file" id="file" name="file"><br>
                 <input type="submit" value="Predict">
             </form>
-            <div id="result" class="result-box"></div>  <!-- 修改这一行 -->
+            <div id="result" class="result-box"></div> 
         </div>
         <div class="grid-item">
             <img src="{{ url_for('static', filename='Features.png') }}" alt="Features Image">
@@ -27,8 +27,8 @@
                 <input type="file" id="file2" name="file"><br>
                 <input type="submit" value="Classify">
             </form>
-            <div id="result2" class="result-box"></div>  <!-- 修改这一行 -->
-            <h2 id="error2"></h2>  <!-- 用于显示错误信息 -->
+            <div id="result2" class="result-box"></div>  
+            <h2 id="error2"></h2> 
         </div>
     </div>
 
@@ -45,12 +45,12 @@
             processData: false,
             contentType: false,
             success: function(response) {
-                console.log(response);  // 打印响应
-                $('#result').text('Prediction: ' + response);  // 显示预测结果
+                console.log(response);  
+                $('#result').text('Prediction: ' + response);  
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                console.log('Error: ' + textStatus + ', ' + errorThrown);  // 打印错误信息
-                $('#error').text('Error: ' + textStatus + ', ' + errorThrown);  // 显示错误信息
+                console.log('Error: ' + textStatus + ', ' + errorThrown);  
+                $('#error').text('Error: ' + textStatus + ', ' + errorThrown);  
             }
         });
     });
@@ -67,12 +67,12 @@
             processData: false,
             contentType: false,
             success: function(response) {
-                console.log(response);  // 打印响应
-                $('#result2').text('Classification: ' + response);  // 显示分类结果
+                console.log(response);  
+                $('#result2').text('Classification: ' + response);  
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                console.log('Error: ' + textStatus + ', ' + errorThrown);  // 打印错误信息
-                $('#error2').text('Error: ' + textStatus + ', ' + errorThrown);  // 显示错误信息
+                console.log('Error: ' + textStatus + ', ' + errorThrown); 
+                $('#error2').text('Error: ' + textStatus + ', ' + errorThrown); 
             }
         });
     });
